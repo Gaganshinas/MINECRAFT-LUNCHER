@@ -18,14 +18,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Build with Android Build Tool
+    - name: Generate Wrapper and Build APK
       run: |
-        chmod +x ./gradlew || echo "No gradlew found"
-        if [ -f "./gradlew" ]; then
-          ./gradlew assembleDebug
-        else
-          gradle assembleDebug
-        fi
+        gradle wrapper --gradle-version 8.5
+        chmod +x ./gradlew
+        ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
